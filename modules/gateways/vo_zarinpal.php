@@ -43,12 +43,12 @@ function vo_zarinpal_config() {
             "Options" => array(
                 'WebGate' => 'وب گیت',
                 'ZarinGate' => 'زرین گیت',
+                'Btm' => 'بانک ملت',
                 'Sad' => 'سداد',
                 'Pec' => 'پارسیان',
                 'Sep' => 'سامان',
                 'Sep' => 'آسان پرداخت',
                 'Fan' => 'فن آوا',
-                'Btm' => 'امتیاز',
                 'Emz' => 'امتیاز',
             ),
         ),
@@ -124,12 +124,17 @@ function vo_zarinpal_link($params) {
             'CallbackURL' => $CallbackURL,
         ]
     );
+    if($ConnectTo == 'WebGate' || $connection == 'sandbox'){
+        $vahab_connect = "";
+    }else{
+        $vahab_connect = "/".$ConnectTo;
+    }
 
     $code = "<form method='post'><button type='submit' class='btn $BtnColor'>$TextBtn</button></form>";
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         if ($result->Status == 100) {
-            Header('Location: https://'.$connection.'.zarinpal.com/pg/StartPay/'.$result->Authority.'/'.$ConnectTo);
+            Header('Location: https://'.$connection.'.zarinpal.com/pg/StartPay/'.$result->Authority.$vahab_connect);
         } else {
             echo'ERR: '.$result->Status;
         }
