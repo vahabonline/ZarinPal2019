@@ -57,7 +57,7 @@ if (!$gatewayParams['type']) {
         }
 
         if ($result->Status == 100) {
-			$transid = $resultO->RefID;
+			$transid = $result->RefID;
 			checkCbTransID($transid);
             addInvoicePayment($invoiceid, $transid, $Amount, $Amount, $gatewayModuleName);
             logTransaction($GATEWAY['name'], array('Get' => $_GET, 'Websevice' => (array) $resultO), 'Successful');
